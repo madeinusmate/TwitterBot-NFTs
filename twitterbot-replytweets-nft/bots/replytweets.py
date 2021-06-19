@@ -21,8 +21,8 @@ class FavRetweetListener(tweepy.StreamListener):
         self.me = api.me()
 
     def on_status(self, tweet):
-        count = 0
-        for count in range(0,10):
+        reply_counter = 0
+        for reply_counter in range(0,10):
             logger.info("Processing tweet id:" + str(tweet.id))
             if tweet.user.id == self.me.id:
                 logger.info("This tweet is a reply or I'm its author so, ignore it")
@@ -45,14 +45,14 @@ class FavRetweetListener(tweepy.StreamListener):
             except:
                 pass
 
-            count += 1
+            reply_counter += 1
 
-        while count == 1:
+        while reply_counter == 1:
             logger.info("Waiting 20 mins to avoid ban")
-            logger.info("Total Tweets sent in this session: " + str(count))
+            logger.info("Total Tweets sent in this session: " + str(reply_counter))
             time.sleep(1200)
             logger.info("Starting a new Session")
-            count = 0
+            reply_counter = 0
 
 
 
